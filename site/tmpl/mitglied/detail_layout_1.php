@@ -69,19 +69,19 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 		
 		<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '1') : ?>
 					<?php if (!empty($this->item->geburtsdatum) && $this->item->geburtsdatum != '0000-00-00 00:00:00') : ?>
-					<?php echo 'Alter: '.floor((time() - strtotime($this->item->geburtsdatum)) / 31558149.540288); ?>
+					<?php echo 'Alter: '.floor((time() - strtotime((string) $this->item->geburtsdatum)) / 31558149.540288); ?>
 					<?php endif;?>
 				<br/>
 					<?php endif; ?>
 					
 		<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '1') : ?>
 					<?php if (!empty($this->item->eintrittsdatum) && $this->item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
-					<?php $zeit = floor((time() - strtotime($this->item->eintrittsdatum)) / 31558149.54028812);?>
+					<?php $zeit = floor((time() - strtotime((string) $this->item->eintrittsdatum)) / 31558149.54028812);?>
 					<?php $zeit2 = ' Jahr(en) ';?>
 					
 					<?php
 					if ($zeit < '1') :
-					$zeit = floor((time() - strtotime($this->item->eintrittsdatum)) / 31558149.54028812*12);
+					$zeit = floor((time() - strtotime((string) $this->item->eintrittsdatum)) / 31558149.54028812*12);
 					$zeit2 = ' Monat(en) ';
 					endif;
 					?>

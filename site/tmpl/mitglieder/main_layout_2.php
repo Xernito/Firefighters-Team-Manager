@@ -121,18 +121,18 @@ use Joomla\CMS\Version;
 				<br/>				
 					<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '2') : ?>
 					<?php if (!empty($item->geburtsdatum) && $item->geburtsdatum != '0000-00-00 00:00:00') : ?>
-					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
+					<?php echo '<b>Alter: </b>'.floor((time() - strtotime((string) $item->geburtsdatum)) / 31558149.540288); ?>
 				<br/>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '2') : ?>
 					<?php if (!empty($item->eintrittsdatum) && $item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
-					<?php $zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812);?>
+					<?php $zeit = floor((time() - strtotime((string) $item->eintrittsdatum)) / 31558149.54028812);?>
 					<?php $zeit2 = ' Jahr(en) ';?>
 					
 					<?php
 					if ($zeit < '1') :
-					$zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812*12);
+					$zeit = floor((time() - strtotime((string) $item->eintrittsdatum)) / 31558149.54028812*12);
 					$zeit2 = ' Monat(en) ';
 					endif;
 					?>
@@ -212,14 +212,14 @@ use Joomla\CMS\Version;
 	  
 					<!--<?php if ($this->params->get('show_alter','1')) : ?>-->
 					<?php if (!empty($item->geburtsdatum) && $item->geburtsdatum != '0000-00-00 00:00:00') : ?>
-					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
+					<?php echo '<b>Alter: </b>'.floor((time() - strtotime((string) $item->geburtsdatum)) / 31558149.540288); ?>
 				<br/>
 					<?php endif; ?>
 					<!--<?php endif; ?>-->
 					<!--<?php if ($this->params->get('show_eintrittsdatum','1')) : ?>-->
 					<?php if (!empty($item->eintrittsdatum) && $item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
-					<?php //echo '<b>Eintrittsjahr: </b>'.date('Y', strtotime($item->eintrittsdatum)); ?>
-					<?php echo 'Seit '.floor((time() - strtotime($item->eintrittsdatum)) / 31558149.540288).' Jahr(en) Mitglied in der Feuerwehr'; ?>
+					<?php //echo '<b>Eintrittsjahr: </b>'.date('Y', strtotime((string) $item->eintrittsdatum)); ?>
+					<?php echo 'Seit '.floor((time() - strtotime((string) $item->eintrittsdatum)) / 31558149.540288).' Jahr(en) Mitglied in der Feuerwehr'; ?>
 				<br/><br/>
 					<?php endif; ?>
 					<!--<?php endif; ?>-->

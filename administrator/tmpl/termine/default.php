@@ -171,7 +171,7 @@ if ($saveOrder && !empty($this->items)) {
 					<?php echo $item->abteilungen; ?>
 				</td>
 				<td>
-					<?php $curDate = strtotime($item->datum_start); 
+					<?php $curDate = strtotime((string) $item->datum_start); 
 						  $curTime = date('H:i', $curDate);
 						  echo date('d.m.Y ', $curDate); 
 						  if ($curTime != '00:00') :

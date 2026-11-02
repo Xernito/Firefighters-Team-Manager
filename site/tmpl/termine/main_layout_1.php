@@ -33,9 +33,9 @@ use Joomla\CMS\Version;
 
 					<li>
 			<?php 	
-						  $curDate = strtotime($item->datum_start); 
+						  $curDate = strtotime((string) $item->datum_start); 
 						  $curTime = date('H:i', $curDate);
-						  $endDate = strtotime($item->datum_ende); 
+						  $endDate = strtotime((string) $item->datum_ende); 
 						  $endTime = date('H:i', $endDate);
 
 						  $abgelaufen = '';

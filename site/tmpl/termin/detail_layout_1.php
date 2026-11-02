@@ -40,7 +40,7 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 						<div class="info">
 						
 			<?php 	
-						  $curDate = strtotime($this->item->datum_start); 
+						  $curDate = strtotime((string) $this->item->datum_start); 
 						  $curTime = date('H:i', $curDate);
 			?>
 						<time datetime="<?php echo date('<b>d.m.Y</b> ', $curDate);?>">
