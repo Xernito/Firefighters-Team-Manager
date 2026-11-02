@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @package     com_firefighters
+ * @copyright   Copyright (C) 2014. Alle Rechte vorbehalten.
+ * @license     GNU General Public License Version 2 oder später; siehe LICENSE.txt
+ */
+
+defined('_JEXEC') or die;
+
+use Firefighters\Component\Firefighters\Administrator\Extension\FirefightersComponent;
+use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
+use Joomla\CMS\Extension\ComponentInterface;
+use Joomla\CMS\Extension\Service\Provider\ComponentDispatcherFactory;
+use Joomla\CMS\Extension\Service\Provider\MVCFactory;
+use Joomla\CMS\HTML\Registry;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
+
+return new class () implements ServiceProviderInterface {
+    public function register(Container $container): void
+    {
+        $container->registerServiceProvider(new MVCFactory('\\Firefighters\\Component\\Firefighters'));
+        $container->registerServiceProvider(new ComponentDispatcherFactory('\\Firefighters\\Component\\Firefighters'));
+
+        $container->set(
+            ComponentInterface::class,
+            function (Container $container) {
+                $component = new FirefightersComponent($container->get(ComponentDispatcherFactoryInterface::class));
+
+                $component->setRegistry($container->get(Registry::class));
+                $component->setMVCFactory($container->get(MVCFactoryInterface::class));
+
+                return $component;
+            }
+        );
+    }
+};

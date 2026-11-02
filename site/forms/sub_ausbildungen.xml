@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="section1" label="Section1" addfieldprefix="Firefighters\Component\Firefighters\Administrator\Field">
+ <field name="ausbildungen" type="foreignkey" class="inputbox"
+            label="Ausbildungs-Historie"
+            description="" input_type="list" table="#__firefighters_ausbildungen" key_field="id" value_field="name"  multiple="multiple"/> 
+
+			<field name="ausbildungen_datum" type="calendar"
+            label=""
+            description="" 
+            format="%Y-%m-%d"
+            menu_published="0"
+            class="ftm_ausbildungen_datum"
+            filter="safehtml"
+            option_on="Yes"
+            option_off="Yes" /> 
+			
+    </fieldset>
+</form>

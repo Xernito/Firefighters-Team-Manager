@@ -1,0 +1,58 @@
+{
+    "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+    "name": "com_firefighters",
+    "version": "2.0.0",
+    "description": "Firefighters Team Manager assets",
+    "license": "GPL-2.0-or-later",
+    "assets": [
+        {
+            "name": "com_firefighters.firefighters",
+            "type": "style",
+            "uri": "com_firefighters/css/firefighters.css"
+        },
+        {
+            "name": "com_firefighters.form",
+            "type": "style",
+            "uri": "com_firefighters/css/form.css"
+        },
+        {
+            "name": "com_firefighters.list",
+            "type": "style",
+            "uri": "com_firefighters/css/list.css"
+        },
+        {
+            "name": "com_firefighters.item",
+            "type": "style",
+            "uri": "com_firefighters/css/item.css"
+        },
+        {
+            "name": "com_firefighters.form",
+            "type": "script",
+            "uri": "com_firefighters/js/form.js",
+            "dependencies": [
+                "jquery"
+            ],
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "com_firefighters.highslide",
+            "type": "script",
+            "uri": "com_firefighters/highslide/highslide-with-gallery.js"
+        },
+        {
+            "name": "com_firefighters.highslide.config",
+            "type": "script",
+            "uri": "com_firefighters/highslide/highslide.config.js",
+            "dependencies": [
+                "com_firefighters.highslide"
+            ]
+        },
+        {
+            "name": "com_firefighters.highslide",
+            "type": "style",
+            "uri": "com_firefighters/highslide/highslide.css"
+        }
+    ]
+}

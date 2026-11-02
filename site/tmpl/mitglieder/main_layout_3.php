@@ -1,0 +1,320 @@
+<?php
+/**
+ * @version     1.0.0
+ * @package     com_firefighters
+ * @copyright   Copyright (C) 2014. Alle Rechte vorbehalten.
+ * @license     GNU General Public License Version 2 oder später; siehe LICENSE.txt
+ * @author      Ralf Meyer <ralf.meyer@mail.de> - https://einsatzkomponente.de
+ */
+// no direct access
+defined('_JEXEC') or die;
+
+\Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('jquery');
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
+
+?>
+<style>
+/*  SECTIONS  */
+
+.mitglieder_passbild {width:350px;}
+.ftm_passbild, .ftm_dienstgrad_image {margin-bottom:5px;padding-bottom:5px;}
+
+.span_1_of_2,.span_2_of_2 {margin-top:20px;margin-bottom:10px;}
+
+.section {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+	display: block;
+	float:left;
+}
+.col:first-child {  }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+
+/*  GRID OF TWO  */
+/*.span_2_of_2 {
+	width: 49.9%;
+} */
+.span_1_of_2 {
+	width: 49.9%;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 640 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.col { 
+	display: block;
+	float:left;
+	}
+}
+
+@media only screen and (max-width: 640) {
+	.span_2_of_2, .span_1_of_2 { width: 100%; }
+	.mitglieder_passbild {width:250px;}
+}
+
+</style>
+
+<form action="<?php echo Route::_('index.php?option=com_firefighters&view=mitglieder'); ?>" method="post" name="adminForm" id="adminForm">
+
+    <?php echo LayoutHelper::render('default_filter', array('view' => $this), dirname(__FILE__)); ?>
+	
+
+<div class="section group">
+
+<?php $a = 1;?>
+    <?php foreach ($this->items as $i => $item) : ?>
+        <?php $canEdit = $user->authorise('core.edit', 'com_firefighters'); ?>
+
+        				<?php if (!$canEdit && $user->authorise('core.edit.own', 'com_firefighters')): ?>
+					<?php $canEdit = Factory::getApplication()->getIdentity()->id == $item->created_by; ?>
+				<?php endif; ?>
+				
+				
+	<div class="col span_<?php echo $a; ?>_of_2">
+
+<?php if ($this->params->get('show_passbild','0') == '0'  OR $this->params->get('show_passbild','0') == '2') : ?>
+<!--Titelbild mit Highslide JS-->
+
+					<?php if ($item->bild) : ?>
+		<div class="mitglieder_passbild">
+
+						<?php if ($this->params->get('show_passbild_highslide','1') == '1' ): ?>
+							<a href="<?php echo Uri::Root().$item->bild;?>" rel="highslide[<?php echo $item->id; ?>]" class="highslide" onClick="return hs.expand(this, { captionText: '<?php echo $item->vorname.' '.$item->name;?>' });" alt ="<?php echo $item->vorname.' '.$item->name;?>">
+						<?php endif;?>
+						
+							  <img class="ftm_passbild" src="<?php echo Uri::Root().$item->bild;?>"  alt="<?php echo $item->vorname.' '.$item->name;?>" title="<?php echo $item->vorname.' '.$item->name;?>"/>
+						  
+						<?php if ($this->params->get('show_passbild_highslide','1') == '1' ): ?>
+							  </a>
+						<?php endif;?>
+					  
+				<?php endif;?>
+
+<!--Titelbild mit Highslide JS  ENDE--> 
+	
+		<?php if ($this->params->get('show_dienstgrad_image','0') == '0'  OR $this->params->get('show_dienstgrad_image','0') == '2') : ?>
+				<?php if ($item->dienstgrad_image) : ?>
+					<img class="ftm_dienstgrad_image" src="<?php echo Uri::Root();?><?php echo $item->dienstgrad_image;?>" alt="<?php echo $item->dienstgrad;?>" title="<?php echo $item->dienstgrad;?>"/>
+				<?php endif;?>
+				
+		<?php endif;?>				
+			</div>
+<?php endif;?>
+				
+            	<span class="mitglieder_details">
+				<?php if (isset($item->checked_out) && $item->checked_out) : ?>
+					<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'mitglieder.', $canCheckin); ?>
+				<?php endif; ?>
+				
+				<?php if ($this->params->get('show_mitlgied_detail_link','1')) : ?>
+				<a href="<?php echo Route::_('index.php?option=com_firefighters&view=mitglied'.$itemID.'&id='.(int) $item->id); ?>">
+				<?php echo '<span style="font-size:20px;font-weight:bold;" class="mitlgied_detail_link">'.$this->escape($item->name).', '.$this->escape($item->vorname).'</span>'; ?></a> 
+				<?php endif; ?>
+				<?php if (!$this->params->get('show_mitlgied_detail_link','1')) : ?>
+				<?php echo '<span style="color:#d63b37;font-size:20px;font-weight:bold;" class="mitlgied_detail_link">'.$this->escape($item->name).', '.$this->escape($item->vorname).'</span>'; ?>
+				<?php endif; ?>
+				
+				<br/>				
+					<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '2') : ?>
+					<?php if ($item->geburtsdatum != '0000-00-00 00:00:00') : ?>
+					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
+				<br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '2') : ?>
+					<?php if ($item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
+					<?php $zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812);?>
+					<?php $zeit2 = ' Jahr(en) ';?>
+					
+					<?php
+					if ($zeit < '1') :
+					$zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812*12);
+					$zeit2 = ' Monat(en) ';
+					endif;
+					?>
+					<?php echo 'Seit '.$zeit.$zeit2.'Mitglied in der Feuerwehr'; ?>
+	
+				<br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+					<?php if ($this->params->get('show_email','0') == '0'  OR $this->params->get('show_email','0') == '2') : ?>
+					<?php if ($item->emailadresse) : ?>
+					<br>
+					<?php echo '<b>Kontakt: </b><i class="icon-envelope"></i> '.HTMLHelper::_('email.cloak', $item->emailadresse); ?> <br>
+					<?php endif;?>
+					<?php endif;?>
+				<br/>
+					<?php if ($this->params->get('show_funktionen','0') == '0'  OR $this->params->get('show_funktionen','0') == '2') : ?>
+					<?php if ($item->funktion) : ?>
+					<?php echo '<b>Funktion: </b><span class="mitglieder_funktion">'.$item->funktion.'</span>'; ?><br/><br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+					<?php if ($this->params->get('show_mehr_funktionen','0') == '0'  OR $this->params->get('show_mehr_funktionen','0') == '2') : ?>
+					<?php if ($item->mehr_funktionen) : ?>
+					<?php echo '<b>weitere Funktion: </b><span class="mitglieder_funktion">'.$item->mehr_funktionen.'</span>'; ?><br/><br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+					<?php if ($this->params->get('show_dienstgrad','0') == '0'  OR $this->params->get('show_dienstgrad','0') == '2') : ?>
+					<?php if ($item->dienstgrad) : ?>
+					<?php echo '<b>Dienstgrad: </b>'.$item->dienstgrad; ?><br/>
+					<?php endif; ?>
+					<?php endif; ?>
+
+					<?php if ($this->params->get('show_abteilungen_list','1') == '1') : ?>
+					<?php if ($this->params->get('show_abteilungen','0') == '0'  OR $this->params->get('show_abteilungen','0') == '2') : ?>
+					<?php if ($item->abteilungen) : ?>
+					<?php echo '<b>Abteilungen: </b>'.$item->abteilungen; ?><br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+					<?php if ($this->params->get('show_abteilungen_list','1') == '0') : ?>
+					<?php if ($this->params->get('show_abteilungen','0') == '0'  OR $this->params->get('show_abteilungen','0') == '2') : ?>
+					<?php if ($item->abteilungen) : ?>
+					<?php $abteilungen = explode (',',$item->abteilungen);?>
+					<?php echo '<table style="border:0px;margin-left:-2px;margin-top:5px;padding-top:5px;"><tr><td style="vertical-align:top"><b>Abteilungen: </b></td><td>'; ?>
+					<?php foreach ( $abteilungen as $abteilung) :  ?>
+					<?php echo '<li>'.$abteilung.'</li>';?>
+					<?php endforeach; ?>
+					<?php echo '</td></tr></table>';?>
+					<?php endif; ?>
+					<?php endif; ?>
+					<?php endif; ?>
+
+					<?php if ($this->params->get('show_ausbildungen_list','1') == '1') : ?>
+					<?php if ($this->params->get('show_ausbildungen','0') == '0'  OR $this->params->get('show_ausbildungen','0') == '2') : ?>
+					<?php if ($item->ausbildungen) : ?>
+					<?php echo '<b>Ausbildung: </b>'.$item->ausbildungen; ?><br/>
+					<?php endif; ?>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+					<?php if ($this->params->get('show_ausbildungen_list','1') == '0') : ?>
+					<?php if ($this->params->get('show_ausbildungen','0') == '0'  OR $this->params->get('show_ausbildungen','0') == '2') : ?>
+					<?php if ($item->ausbildungen) : ?>
+					<?php $ausbildungen = explode (',',$item->ausbildungen);?>
+					<?php echo '<table style="border:0px;margin-left:-2px;margin-top:5px;padding-top:5px;"><tr><td style="vertical-align:top"><b>Ausbildung: </b></td><td>'; ?>
+					<?php foreach ( $ausbildungen as $ausbildung) :  ?>
+					<?php echo '<li>'.$ausbildung.'</li>';?>
+					<?php endforeach; ?>
+					<?php echo '</td></tr></table><br/>';?>
+					<?php endif; ?>
+					<?php endif; ?>
+					<?php endif; ?>
+					
+			<?php $version = new Version;?>
+			<?php if ($version->isCompatible('3.7')) :?>
+			
+					<?php if ($this->params->get('show_list_dienstgrad','0') != '4') : ?>
+					
+					<?php if ($this->params->get('show_dienstgrad_list','1') == '1') : ?>
+					<?php if ($this->params->get('show_list_dienstgrad','0') == '0'  OR $this->params->get('show_list_dienstgrad','0') == '1') : ?>
+					<?php if ($item->list_dienstgrad) : ?>
+					<?php $laufbahn = array();?>
+					<?php foreach ($item->list_dienstgrad as $itemz) : ?>
+					<?php $laufbahn[] = $itemz['dienstgrad'].' ('.date('Y',strtotime($itemz['dienstgrad_datum'])).')'; ?>
+					<?php endforeach; ?>
+					<?php $laufbahn = implode (', ',$laufbahn);?>
+					<?php echo '<b>Laufbahn: </b>'.$laufbahn;?> <br/>
+					<?php endif;?>
+					<?php endif;?>
+					<?php endif;?>
+					
+					<?php if ($this->params->get('show_dienstgrad_list','1') == '0') : ?>
+					<?php if ($this->params->get('show_list_dienstgrad','0') == '0'  OR $this->params->get('show_list_dienstgrad','0') == '1') : ?>
+					<?php if ($item->list_dienstgrad) : ?>
+					<?php echo '<table style="border:0px;margin-left:-2px;margin-top:5px;padding-top:5px;"><tr><td style="vertical-align:top"><b>Laufbahn: </b></td><td>'; ?>
+					<?php foreach ($item->list_dienstgrad as $itemz) : ?>
+					<?php echo '<li>'.$itemz['dienstgrad'].' ('.date('Y',strtotime($itemz['dienstgrad_datum'])).')</li>'; ?>
+					<?php endforeach; ?>
+					<?php echo '</td></tr></table><br/>';?>
+					<?php endif;?>
+					<?php endif;?>
+					<?php endif;?>
+					
+					<?php endif;?>
+					
+			<?php endif;?>
+
+					
+				</span>
+
+            				<?php if ($canEdit || $canDelete): ?>
+					<span class="center">
+						<?php if ($canEdit): ?>
+							<a href="<?php echo Route::_('index.php?option=com_firefighters&task=mitgliedform.edit&id=' . $item->id, false, 2); ?>" class="btn btn-sm" type="button"><i class="icon-edit" ></i></a>
+						<?php endif; ?>
+						<?php if ($canDelete): ?>
+							<button data-item-id="<?php echo $item->id; ?>" class="btn btn-sm delete-button" type="button"><i class="icon-trash" ></i></button>
+						<?php endif; ?>
+					</span>
+				<?php endif; ?>
+	<?php //$a++; if ($a > 2) : echo'</br></br>';endif;?>
+	</div>
+	<?php $a++; if ($a > 2) : $a=1;echo '<div style="clear:both;"> </div>';endif;?>
+    <?php endforeach; ?>
+  </div>
+	
+	
+    <tfoot>
+    <tr>
+        <td colspan="<?php echo isset($this->items[0]) ? count(get_object_vars($this->items[0])) : 10; ?>">
+            <?php echo $this->pagination->getListFooter(); ?>
+        </td>
+    </tr>
+		<?php if (!$this->params->get('ftm')) : ?>
+        <tr><!-- Bitte das Copyright nicht entfernen. Danke. -->
+        <td colspan="<?php echo isset($this->items[0]) ? count(get_object_vars($this->items[0])) : 10; ?>">
+			<span class="copyright">Firefighters Team Manager V<?php echo $this->version; ?>  (C) 2016 by Ralf Meyer ( <a class="copyright_link" href="https://einsatzkomponente.de" target="_blank">www.einsatzkomponente.de</a> )</span></td>
+        </tr>
+	<?php endif; ?>
+    </tfoot>
+	
+    </table>
+
+    <?php if ($canCreate): ?>
+        <a href="<?php echo Route::_('index.php?option=com_firefighters&task=mitgliedform.edit&id=0', false, 2); ?>"
+           class="btn btn-success btn-small"><i
+                class="icon-plus"></i> <?php echo Text::_('COM_FIREFIGHTERS_ADD_ITEM'); ?></a>
+    <?php endif; ?>
+
+    <input type="hidden" name="task" value=""/>
+    <input type="hidden" name="boxchecked" value="0"/>
+    <input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
+    <input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
+    <?php echo HTMLHelper::_('form.token'); ?>
+</form>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        jQuery('.delete-button').click(deleteItem);
+    });
+
+    function deleteItem() {
+        var item_id = jQuery(this).attr('data-item-id');
+        if (confirm("<?php echo Text::_('COM_FIREFIGHTERS_DELETE_MESSAGE'); ?>")) {
+            window.location.href = '<?php echo Route::_('index.php?option=com_firefighters&task=mitgliedform.remove&id=', false, 2) ?>' + item_id;
+        }
+    }
+</script>

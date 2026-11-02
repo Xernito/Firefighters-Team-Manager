@@ -3,87 +3,86 @@ CREATE TABLE IF NOT EXISTS `#__firefighters_abteilungen` (
 
 `asset_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 
-`name` VARCHAR(500)  NOT NULL ,
-`bild` VARCHAR(255)  NOT NULL ,
-`beschreibung` TEXT NOT NULL ,
-`abteilung_farbe` VARCHAR(255)  NOT NULL ,
-`state` TINYINT(1)  NOT NULL ,
-`ordering` INT(11)  NOT NULL ,
-`created_by` INT(11)  NOT NULL ,
+`name` VARCHAR(500) NOT NULL DEFAULT '',
+`bild` VARCHAR(255) NOT NULL DEFAULT '',
+`beschreibung` TEXT NULL,
+`abteilung_farbe` VARCHAR(255) NOT NULL DEFAULT '',
+`state` TINYINT(1) NOT NULL DEFAULT 0,
+`ordering` INT(11) NOT NULL DEFAULT 0,
+`created_by` INT(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
-) DEFAULT COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__firefighters_dienstgrade` (
 `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 
 `asset_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 
-`name` VARCHAR(500)  NOT NULL ,
-`bild` VARCHAR(255)  NOT NULL ,
-`beschreibung` TEXT NOT NULL ,
-`state` TINYINT(1)  NOT NULL ,
-`ordering` INT(11)  NOT NULL ,
-`created_by` INT(11)  NOT NULL ,
+`name` VARCHAR(500) NOT NULL DEFAULT '',
+`bild` VARCHAR(255) NOT NULL DEFAULT '',
+`beschreibung` TEXT NULL,
+`state` TINYINT(1) NOT NULL DEFAULT 0,
+`ordering` INT(11) NOT NULL DEFAULT 0,
+`created_by` INT(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
-) DEFAULT COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__firefighters_ausbildungen` (
 `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 
 `asset_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 
-`name` VARCHAR(500)  NOT NULL ,
-`bild` VARCHAR(255)  NOT NULL ,
-`beschreibung` TEXT NOT NULL ,
-`state` TINYINT(1)  NOT NULL ,
-`ordering` INT(11)  NOT NULL ,
-`created_by` INT(11)  NOT NULL ,
+`name` VARCHAR(500) NOT NULL DEFAULT '',
+`bild` VARCHAR(255) NOT NULL DEFAULT '',
+`beschreibung` TEXT NULL,
+`state` TINYINT(1) NOT NULL DEFAULT 0,
+`ordering` INT(11) NOT NULL DEFAULT 0,
+`created_by` INT(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
-) DEFAULT COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__firefighters` (
 `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 
 `asset_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 
-`name` VARCHAR(500)  NOT NULL ,
-`vorname` VARCHAR(500)  NOT NULL ,
-`name_eiko` VARCHAR(500)  NOT NULL ,
-`bild` VARCHAR(255)  NOT NULL ,
-`dienstgrad` INT NOT NULL ,
-`abteilungen` TEXT NOT NULL ,
-`kommando` TINYINT(1)  NOT NULL ,
-`funktion` VARCHAR(500)  NOT NULL ,
-`mehr_funktionen` VARCHAR(500)  NOT NULL ,
-`ausbildungen` TEXT NOT NULL ,
-`geburtsdatum` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`eintrittsdatum` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`austrittsdatum` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`emailadresse` VARCHAR(255)  NOT NULL ,
-`missions_eiko` TEXT NOT NULL ,
-`state` TINYINT(1)  NOT NULL ,
-`ordering` INT(11)  NOT NULL ,
-`zusatz_ordering` INT(11)  NOT NULL ,
-`created_by` INT(11)  NOT NULL ,
+`name` VARCHAR(500) NOT NULL DEFAULT '',
+`vorname` VARCHAR(500) NOT NULL DEFAULT '',
+`name_eiko` VARCHAR(500) NOT NULL DEFAULT '',
+`bild` VARCHAR(255) NOT NULL DEFAULT '',
+`dienstgrad` INT NOT NULL DEFAULT 0,
+`abteilungen` TEXT NULL,
+`kommando` TINYINT(1) NOT NULL DEFAULT 0,
+`funktion` VARCHAR(500) NOT NULL DEFAULT '',
+`mehr_funktionen` VARCHAR(500) NOT NULL DEFAULT '',
+`ausbildungen` TEXT NULL,
+`geburtsdatum` DATETIME NULL DEFAULT NULL,
+`eintrittsdatum` DATETIME NULL DEFAULT NULL,
+`austrittsdatum` DATETIME NULL DEFAULT NULL,
+`emailadresse` VARCHAR(255) NOT NULL DEFAULT '',
+`missions_eiko` TEXT NULL,
+`state` TINYINT(1) NOT NULL DEFAULT 0,
+`ordering` INT(11) NOT NULL DEFAULT 0,
+`zusatz_ordering` INT(11) NOT NULL DEFAULT 0,
+`created_by` INT(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
-) DEFAULT COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__firefighters_termine` (
 `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 
 `asset_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 
-`name` VARCHAR(500)  NOT NULL ,
-`bild` VARCHAR(255)  NOT NULL ,
-`email` TINYINT(1)  NOT NULL ,
-`abteilungen` TEXT NOT NULL ,
-`beschreibung` TEXT NOT NULL ,
-`datum_start` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`datum_ende` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`email_gesendet` TINYINT(10)  NOT NULL ,
-`state` TINYINT(1)  NOT NULL ,
-`ordering` INT(11)  NOT NULL ,
-`created_by` INT(11)  NOT NULL ,
+`name` VARCHAR(500) NOT NULL DEFAULT '',
+`bild` VARCHAR(255) NOT NULL DEFAULT '',
+`email` TINYINT(1) NOT NULL DEFAULT 0,
+`abteilungen` TEXT NULL,
+`beschreibung` TEXT NULL,
+`datum_start` DATETIME NULL DEFAULT NULL,
+`datum_ende` DATETIME NULL DEFAULT NULL,
+`email_gesendet` TINYINT(10) NOT NULL DEFAULT 0,
+`state` TINYINT(1) NOT NULL DEFAULT 0,
+`ordering` INT(11) NOT NULL DEFAULT 0,
+`created_by` INT(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
-) DEFAULT COLLATE=utf8_general_ci;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;

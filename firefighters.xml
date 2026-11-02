@@ -1,103 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="3.6.0" method="upgrade">
+<extension type="component" method="upgrade">
     <name>com_firefighters</name>
-    <creationDate>2019-03-28</creationDate> 
+    <creationDate>2026-11</creationDate>
     <copyright>Copyright (C) 2019. Alle Rechte vorbehalten.</copyright>
     <license>GNU General Public License Version 2 oder später; siehe LICENSE.txt</license>
     <author>Ralf Meyer</author>
     <authorEmail>ralf.meyer@einsatzkomponente.de</authorEmail>
     <authorUrl>https://einsatzkomponente.de</authorUrl>
-    <version>1.11.00</version> 
+    <version>2.0.0</version>
     <description><![CDATA[
 			<h1>Firefighters Team Manager</h1><h3>für das Joomla-CMS</h3>
 			<div style="clear: both;"></div>
 			<p>Copyright (C) 2017 Ralf Meyer</p>
 			<p>Website: <a href='https://www.einsatzkomponente.de'>www.einsatzkomponente.de</a></p>
 			]]></description>
-     
-    <scriptfile>script.php</scriptfile> 
-    
-    <install> <!-- Runs on install -->
+    <namespace path="src">Firefighters\Component\Firefighters</namespace>
+
+    <scriptfile>script.php</scriptfile>
+
+    <install>
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
         </sql>
     </install>
-	
-    <uninstall> <!-- Runs on uninstall -->
+
+    <uninstall>
         <sql>
             <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
-	
-	<update> <!-- Runs on update; New since J2.5 -->
-		<schemas>
-			<schemapath type="mysql">sql/updates/mysql</schemapath>
-		</schemas>
-	</update>  
-	
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
 
     <files folder="site">
-        <filename>index.html</filename>
-        <filename>firefighters.php</filename>
-        <filename>controller.php</filename>
-        <filename>router.php</filename>
-        <folder>views</folder>
-        <folder>models</folder>
-        <folder>controllers</folder>
-        <folder>helpers</folder>
-        <folder>assets</folder>
+        <folder>forms</folder>
+        <folder>services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
     </files>
-	
-	<media destination="com_firefighters" folder="media">
-		<folder>images</folder>
-	</media>
-	
+
+    <media destination="com_firefighters" folder="media">
+        <filename>joomla.asset.json</filename>
+        <folder>css</folder>
+        <folder>highslide</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+    </media>
+
     <administration>
-        <menu img="components/com_firefighters/assets/images/s_com_firefighters.png" >COM_FIREFIGHTERS_MENU</menu>
+        <menu img="class:users">COM_FIREFIGHTERS_MENU</menu>
         <submenu>
-            
-			<menu link="option=com_firefighters&amp;view=kontrollcenter" view="kontrollcenter" img="components/com_firefighters/assets/images/s_kontrollcenter.png" alt="Firefighters/Kontrollcenter">COM_FIREFIGHTERS_TITLE_KONTROLLCENTERS</menu>
-
-			<menu link="option=com_firefighters&amp;view=abteilungen" view="abteilungen" img="components/com_firefighters/assets/images/s_abteilungen.png" alt="Firefighters/Abteilungen">COM_FIREFIGHTERS_TITLE_ABTEILUNGEN</menu>
-
-			<menu link="option=com_firefighters&amp;view=dienstgrade" view="dienstgrade" img="components/com_firefighters/assets/images/s_dienstgrade.png" alt="Firefighters/Dienstgrade">COM_FIREFIGHTERS_TITLE_DIENSTGRADE</menu>
-
-			<menu link="option=com_firefighters&amp;view=ausbildungen" view="ausbildungen" img="components/com_firefighters/assets/images/s_ausbildungen.png" alt="Firefighters/Ausbildungen">COM_FIREFIGHTERS_TITLE_AUSBILDUNGEN</menu>
-
-			<menu link="option=com_firefighters&amp;view=mitglieder" view="mitglieder" img="components/com_firefighters/assets/images/s_mitglieder.png" alt="Firefighters/Mitglieder">COM_FIREFIGHTERS_TITLE_MITGLIEDER</menu>
-
-			<menu link="option=com_firefighters&amp;view=termine" view="termine" img="components/com_firefighters/assets/images/s_termine.png" alt="Firefighters/Termine">COM_FIREFIGHTERS_TITLE_TERMINE</menu>
-
-
+            <menu link="option=com_firefighters&amp;view=kontrollcenter" view="kontrollcenter" img="class:home" alt="Firefighters/Kontrollcenter">COM_FIREFIGHTERS_TITLE_KONTROLLCENTERS</menu>
+            <menu link="option=com_firefighters&amp;view=abteilungen" view="abteilungen" img="class:sitemap" alt="Firefighters/Abteilungen">COM_FIREFIGHTERS_TITLE_ABTEILUNGEN</menu>
+            <menu link="option=com_firefighters&amp;view=dienstgrade" view="dienstgrade" img="class:star" alt="Firefighters/Dienstgrade">COM_FIREFIGHTERS_TITLE_DIENSTGRADE</menu>
+            <menu link="option=com_firefighters&amp;view=ausbildungen" view="ausbildungen" img="class:graduation-cap" alt="Firefighters/Ausbildungen">COM_FIREFIGHTERS_TITLE_AUSBILDUNGEN</menu>
+            <menu link="option=com_firefighters&amp;view=mitglieder" view="mitglieder" img="class:users" alt="Firefighters/Mitglieder">COM_FIREFIGHTERS_TITLE_MITGLIEDER</menu>
+            <menu link="option=com_firefighters&amp;view=termine" view="termine" img="class:calendar" alt="Firefighters/Termine">COM_FIREFIGHTERS_TITLE_TERMINE</menu>
         </submenu>
         <files folder="administrator">
             <filename>access.xml</filename>
             <filename>config.xml</filename>
-            <filename>controller.php</filename>
-            <filename>index.html</filename>
             <filename>CHANGELOG.php</filename>
-            <filename>firefighters.php</filename>
-            <folder>controllers</folder>
-            <folder>assets</folder>
-            <folder>helpers</folder>
-            <folder>models</folder>
+            <folder>forms</folder>
+            <folder>services</folder>
             <folder>sql</folder>
-            <folder>tables</folder>
-            <folder>views</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
         </files>
-        <languages folder="languages/administrator"> 
-            
-			<language tag="en-GB">en-GB/en-GB.com_firefighters.ini</language>
-			<language tag="en-GB">en-GB/en-GB.com_firefighters.sys.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_firefighters.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_firefighters.sys.ini</language>
+        <languages folder="languages/administrator">
+            <language tag="en-GB">en-GB/en-GB.com_firefighters.ini</language>
+            <language tag="en-GB">en-GB/en-GB.com_firefighters.sys.ini</language>
+            <language tag="de-DE">de-DE/de-DE.com_firefighters.ini</language>
+            <language tag="de-DE">de-DE/de-DE.com_firefighters.sys.ini</language>
         </languages>
     </administration>
-	
-<!-- UPDATESERVER DEFINITION -->
-	<updateservers>
-		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="extension" priority="1" name="Firefighters Team Manager">https://einsatzkomponente.joomla100.com/update/com_firefighters-update.xml</server>
-	</updateservers>
-	
 </extension>

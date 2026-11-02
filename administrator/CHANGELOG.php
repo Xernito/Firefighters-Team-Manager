@@ -2,6 +2,15 @@
 <h1>Firefighters Team Manager für das Joomla-CMS</h1>
 <hr>
 
+<h3>Changelog <small>Version 2.0.0</small></h3>
+<ul>
++ Portierung auf Joomla 6 (PHP 8.3, Namespaces, Service-Provider)
++ Backend-Listen mit Search-Tools, Bootstrap 5
+# Datenbank: utf8mb4, NULL statt 0000-00-00-Datumswerten
+# Update-Server der Joomla-3-Version entfernt
+</ul>
+
+
 <h3>Changelog <small>Version 1.10</small></h3>
 <ul>
 # State-Problem bei Update auf Joomla 3.9.1

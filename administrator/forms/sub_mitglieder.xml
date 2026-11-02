@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="section1" label="Section1" addfieldprefix="Firefighters\Component\Firefighters\Administrator\Field">
+ <field name="nur_diese_mitglieder" 
+		type="sql" 
+		class="inputbox" 
+		label = "Nur diese Mitglieder anzeigen"
+		description = "Es werden nur diese Mitglieder für diese Übersicht berücksichtigt !"
+		query="SELECT `id`, CONCAT(name, ', ', vorname) AS name FROM `#__firefighters`" 
+		key_field="id" 
+		value_field="name"/>  
+			
+    </fieldset>
+</form>

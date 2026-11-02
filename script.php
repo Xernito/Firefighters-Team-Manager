@@ -8,70 +8,89 @@
  * @license     GNU General Public License Version 2 oder später; siehe LICENSE.txt
  */
 
-define('MODIFIED', 1);
-define('NOT_MODIFIED', 2);
+defined('_JEXEC') or die;
 
-class com_firefightersInstallerScript
-{
-	public function preflight($type, $parent)
-	{
-		
-	
-		$jversion = new JVersion();
- 
-		// Installing component manifest file version
-		$this->release = $parent->get( "manifest" )->version;
- 
-		// Manifest file minimum Joomla version
-		$this->minimum_joomla_release = $parent->get( "manifest" )->attributes()->version;  
-		
-		// Installing component manifest file version
-		$manifest = $parent->get("manifest");
-		$release  = (string) $manifest['version'];
- 
- 
-		// Show the essential information at the install/update back-end
-		echo '<div class="alert alert-block alert-info">';
-		echo 'Installiere jetzt die Komponente Firefighters Version = ' . $this->release;
-		echo '<br />Mindestens erforderliche Joomla-Version = ' . $this->minimum_joomla_release;
-		echo '<br />Aktuelle Joomla-Version = ' . $jversion->getShortVersion();
-		echo '</div>';
-		
+use Joomla\CMS\Application\AdministratorApplication;
+use Joomla\CMS\Installer\Adapter\ComponentAdapter;
+use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
+use Joomla\CMS\Language\Text;
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
 
-		if (!$jversion->isCompatible($release))
-		{
-			JFactory::getApplication()->enqueueMessage(
-				JText::_('Diese Komponente ist nicht mit der installierten Joomla-Version kompatibel'),
-				'error'
-			);
+return new class () implements ServiceProviderInterface {
+    public function register(Container $container): void
+    {
+        $container->set(
+            InstallerScriptInterface::class,
+            new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
+                /**
+                 * Minimum Joomla version to install the component on.
+                 */
+                private string $minimumJoomla = '6.0.0';
 
-			return false;
-		}
+                /**
+                 * Minimum PHP version to install the component on.
+                 */
+                private string $minimumPhp = '8.3.0';
 
-		return true;
-	}
+                public function __construct(private AdministratorApplication $app)
+                {
+                }
 
-	public function install($parent)
-	{
-		//$this->db_update($parent);
-		$parent->getParent()->setRedirectURL('index.php?option=com_firefighters&view=installation');
-	}
+                public function install(InstallerAdapter $parent): bool
+                {
+                    return true;
+                }
 
-	public function update($parent) 
-	{
-		//$this->db_update($parent);
-		$parent->getParent()->setRedirectURL('index.php?option=com_firefighters&view=kontrollcenter');
-	}
+                public function update(InstallerAdapter $parent): bool
+                {
+                    return true;
+                }
 
-	public function uninstall($parent)
-	{}
-	private function db_update($parent)
-	{}
+                public function uninstall(InstallerAdapter $parent): bool
+                {
+                    return true;
+                }
 
+                public function preflight(string $type, InstallerAdapter $parent): bool
+                {
+                    if ($type === 'uninstall') {
+                        return true;
+                    }
 
-	
-}
+                    if (version_compare(PHP_VERSION, $this->minimumPhp, '<')) {
+                        $this->app->enqueueMessage(
+                            sprintf('Firefighters Team Manager benötigt mindestens PHP %s (aktuell: %s).', $this->minimumPhp, PHP_VERSION),
+                            'error'
+                        );
 
+                        return false;
+                    }
 
+                    if (version_compare(JVERSION, $this->minimumJoomla, '<')) {
+                        $this->app->enqueueMessage(
+                            sprintf('Firefighters Team Manager benötigt mindestens Joomla %s (aktuell: %s).', $this->minimumJoomla, JVERSION),
+                            'error'
+                        );
 
+                        return false;
+                    }
 
+                    return true;
+                }
+
+                public function postflight(string $type, InstallerAdapter $parent): bool
+                {
+                    if ($type === 'install' && $parent instanceof ComponentAdapter) {
+                        $parent->getParent()->setRedirectUrl('index.php?option=com_firefighters&view=installation');
+                    } elseif ($type === 'update' && $parent instanceof ComponentAdapter) {
+                        $parent->getParent()->setRedirectUrl('index.php?option=com_firefighters&view=kontrollcenter');
+                    }
+
+                    return true;
+                }
+            }
+        );
+    }
+};

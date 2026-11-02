@@ -835,7 +835,7 @@
 	</fieldset>
 	
 	<fieldset name="information" label="Info"
-		addfieldpath="/administrator/components/com_firefighters/models/fields"
+		addfieldprefix="Firefighters\Component\Firefighters\Administrator\Field"
 	>
 		<field 
 			name="infobox"
