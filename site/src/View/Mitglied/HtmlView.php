@@ -52,7 +52,9 @@ class HtmlView extends BaseHtmlView {
 		$document->getWebAssetManager()->useScript('com_firefighters.highslide.config');		
 		$document->getWebAssetManager()->useStyle('com_firefighters.highslide'); 
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('mitglied_detail_css','')); 
+		if (trim((string) $this->params->get('mitglied_detail_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('mitglied_detail_css',''));
+		} 
 
 ?>
     <script type="text/javascript">
@@ -63,7 +65,6 @@ class HtmlView extends BaseHtmlView {
  <?php 	
         if (!empty($this->item)) {
             
-		$this->form		= $this->getModel()->getForm();
         }
 
         
@@ -80,7 +81,9 @@ class HtmlView extends BaseHtmlView {
 		$document = Factory::getApplication()->getDocument();
         // Import CSS
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('mitglied_css','')); 
+		if (trim((string) $this->params->get('mitglied_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('mitglied_css',''));
+		} 
 
         $this->_prepareDocument();
 

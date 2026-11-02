@@ -29,63 +29,6 @@ $doc = Factory::getApplication()->getDocument();
 $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 
 ?>
-</style>
-<script type="text/javascript"> 
-    function() {
-        jQuery(document).ready(function() {
-            jQuery('#form-mitglied').submit(function(event) {
-                
-            });
-
-            
-			jQuery('input:hidden.dienstgrad').each(function(){
-				var name = jQuery(this).attr('name');
-				if(name.indexOf('dienstgradhidden')){
-					jQuery('#jform_dienstgrad option[value="' + jQuery(this).val() + '"]').attr('selected',true);
-				}
-			});
-					jQuery("#jform_dienstgrad").trigger("liszt:updated");
-			jQuery('input:hidden.abteilungen').each(function(){
-				var name = jQuery(this).attr('name');
-				if(name.indexOf('abteilungenhidden')){
-					jQuery('#jform_abteilungen option[value="' + jQuery(this).val() + '"]').attr('selected',true);
-				}
-			});
-	jQuery('#jform_abteilungen').change(function(){
-		if(jQuery('#jform_abteilungen option:selected').length == 0){
-		jQuery("#jform_abteilungen option[value=0]").attr('selected', 'selected');
-		}
-	});
-					jQuery("#jform_abteilungen").trigger("liszt:updated");
-			jQuery('input:hidden.ausbildungen').each(function(){
-				var name = jQuery(this).attr('name');
-				if(name.indexOf('ausbildungenhidden')){
-					jQuery('#jform_ausbildungen option[value="' + jQuery(this).val() + '"]').attr('selected',true);
-				}
-			});
-	jQuery('#jform_ausbildungen').change(function(){
-		if(jQuery('#jform_ausbildungen option:selected').length == 0){
-		jQuery("#jform_ausbildungen option[value=0]").attr('selected', 'selected');
-		}
-	});
-					jQuery("#jform_ausbildungen").trigger("liszt:updated");
-			jQuery('input:hidden.missions_eiko').each(function(){
-				var name = jQuery(this).attr('name');
-				if(name.indexOf('missions_eikohidden')){
-					jQuery('#jform_missions_eiko option[value="' + jQuery(this).val() + '"]').attr('selected',true);
-				}
-			});
-	jQuery('#jform_missions_eiko').change(function(){
-		if(jQuery('#jform_missions_eiko option:selected').length == 0){
-		jQuery("#jform_missions_eiko option[value=0]").attr('selected', 'selected');
-		}
-	});
-					jQuery("#jform_missions_eiko").trigger("liszt:updated");
-        });
-    });
-
-</script>
-
 <div class="mitglied-edit front-end-edit">
     <?php if (!empty($this->item->id)): ?>
         <h1>Mitglied <small>bearbeiten</small> (ID-Nr.<?php echo $this->item->id; ?>)</h1>
@@ -189,17 +132,8 @@ $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 		<div class="controls"><?php echo $this->form->getInput('created_by'); ?></div>
 	</div>				
 	
-<!--	<div class="fltlft" <?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?> style="display:none;" <?php endif; ?> >
-                <?php echo HTMLHelper::_('sliders.start', 'permissions-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-                <?php echo HTMLHelper::_('sliders.panel', Text::_('ACL Configuration'), 'access-rules'); ?>
-                <fieldset class="panelform">
-                    <?php echo $this->form->getLabel('rules'); ?>
-                    <?php echo $this->form->getInput('rules'); ?>
-                </fieldset>
-                <?php echo HTMLHelper::_('sliders.end'); ?>
-    </div> -->
 	
-				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?>
+				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_firefighters')): ?>
                 <script type="text/javascript">
                     jQuery.noConflict();
                     jQuery('.tab-pane select').each(function(){

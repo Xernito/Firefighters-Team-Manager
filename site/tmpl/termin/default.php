@@ -30,5 +30,5 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 	$canEdit = Factory::getApplication()->getIdentity()->id == $this->item->created_by;
 }
 
-require_once JPATH_SITE.'/components/com_firefighters/views/termin/tmpl/'.$this->params->get('detail_layout','detail_layout_1.php').''; 
+require JPATH_SITE.'/components/com_firefighters/tmpl/termin/'.$this->params->get('detail_layout','detail_layout_1.php').''; 
 ?>

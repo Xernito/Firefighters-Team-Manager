@@ -19,5 +19,5 @@ $lang->load('com_firefighters', JPATH_ADMINISTRATOR);
 ?>
 
 <?php
-require_once JPATH_SITE.'/components/com_firefighters/views/mitglied/tmpl/'.$this->params->get('detail_layout','detail_layout_1.php').''; 
+require JPATH_SITE.'/components/com_firefighters/tmpl/mitglied/'.$this->params->get('detail_layout','detail_layout_1.php').''; 
 ?>

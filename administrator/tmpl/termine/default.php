@@ -181,7 +181,7 @@ if ($saveOrder && !empty($this->items)) {
 				</td>
 				<td>
 
-					<?php if ($item->datum_ende != '0000-00-00 00:00:00') :
+					<?php if (!empty($item->datum_ende) && $item->datum_ende != '0000-00-00 00:00:00') :
 							echo $item->datum_ende;
 						endif;
 					?>

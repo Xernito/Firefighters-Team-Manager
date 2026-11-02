@@ -49,12 +49,13 @@ class HtmlView extends BaseHtmlView {
 		endif;
 
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('dienstgrad_detail_css','')); 
+		if (trim((string) $this->params->get('dienstgrad_detail_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('dienstgrad_detail_css',''));
+		} 
 
 		
         if (!empty($this->item)) {
             
-		$this->form		= $this->getModel()->getForm();
         }
 
         

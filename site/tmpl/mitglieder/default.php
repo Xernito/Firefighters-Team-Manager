@@ -52,6 +52,6 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 <?php endif;?>
 
 <?php
-require_once JPATH_SITE.'/components/com_firefighters/views/mitglieder/tmpl/'.$this->params->get('main_layout','main_layout_1.php').''; 
+require JPATH_SITE.'/components/com_firefighters/tmpl/mitglieder/'.$this->params->get('main_layout','main_layout_1.php').''; 
 
 ?>

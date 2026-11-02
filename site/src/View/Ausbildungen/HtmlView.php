@@ -52,7 +52,9 @@ class HtmlView extends BaseHtmlView {
 		
         // Import CSS
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('ausbildungen_css','')); 
+		if (trim((string) $this->params->get('ausbildungen_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('ausbildungen_css',''));
+		} 
 
 		//Komponentenversion aus Datenbank lesen
 		$this->version 		= FirefightersHelper::getVersion (); 

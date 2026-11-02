@@ -61,6 +61,18 @@ class AusbildungModel extends ItemModel {
      *
      * @return	mixed	Object on success, false on failure.
      */
+    /**
+     * Returns the item (ItemModelInterface); the data is loaded by getData().
+     *
+     * @param   integer|null  $pk  The id of the item.
+     *
+     * @return  object|false
+     */
+    public function getItem($pk = null)
+    {
+        return $this->getData($pk);
+    }
+
     public function getData($id = null) {
         if ($this->_item === null) {
             $this->_item = false;

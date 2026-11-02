@@ -25,20 +25,6 @@ $doc = Factory::getApplication()->getDocument();
 $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 
 ?>
-</style>
-<script type="text/javascript">
-     function() {
-        jQuery(document).ready(function() {
-            jQuery('#form-dienstgrad').submit(function(event) {
-                
-            });
-
-            
-        });
-    });
-
-</script>
-
 <div class="dienstgrad-edit front-end-edit">
     <?php if (!empty($this->item->id)): ?>
         <h1>Dienstgrad <small>bearbeiten</small> (ID.Nr.<?php echo $this->item->id; ?>)</h1>
@@ -70,16 +56,7 @@ $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 		<div class="control-label"><?php echo $this->form->getLabel('created_by'); ?></div>
 		<div class="controls"><?php echo $this->form->getInput('created_by'); ?></div>
 	</div>				
-	<!--<div class="fltlft" <?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?> style="display:none;" <?php endif; ?> >
-                <?php echo HTMLHelper::_('sliders.start', 'permissions-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-                <?php echo HTMLHelper::_('sliders.panel', Text::_('ACL Configuration'), 'access-rules'); ?>
-                <fieldset class="panelform">
-                    <?php echo $this->form->getLabel('rules'); ?>
-                    <?php echo $this->form->getInput('rules'); ?>
-                </fieldset>
-                <?php echo HTMLHelper::_('sliders.end'); ?>
-            </div> -->
-				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?>
+				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_firefighters')): ?>
                 <script type="text/javascript">
                     jQuery.noConflict();
                     jQuery('.tab-pane select').each(function(){

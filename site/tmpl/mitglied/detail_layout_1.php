@@ -68,14 +68,14 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 		
 		
 		<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '1') : ?>
-					<?php if ($this->item->geburtsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($this->item->geburtsdatum) && $this->item->geburtsdatum != '0000-00-00 00:00:00') : ?>
 					<?php echo 'Alter: '.floor((time() - strtotime($this->item->geburtsdatum)) / 31558149.540288); ?>
 					<?php endif;?>
 				<br/>
 					<?php endif; ?>
 					
 		<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '1') : ?>
-					<?php if ($this->item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($this->item->eintrittsdatum) && $this->item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
 					<?php $zeit = floor((time() - strtotime($this->item->eintrittsdatum)) / 31558149.54028812);?>
 					<?php $zeit2 = ' Jahr(en) ';?>
 					
@@ -157,14 +157,13 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 					
 		
 		
-			<?php $version = new Version;?>
-			<?php if ($version->isCompatible('3.7')) :?>
+			<?php if (true) :?>
 			
 					<?php if ($this->params->get('show_list_dienstgrad','0') != '4') : ?>
 					
 					<?php if ($this->params->get('show_dienstgrad_list','1') == '1') : ?>
 					<?php if ($this->params->get('show_list_dienstgrad','0') == '0'  OR $this->params->get('show_list_dienstgrad','0') == '1') : ?>
-					<?php if ($this->item->list_dienstgrad) : ?>
+					<?php if (!empty($this->item->list_dienstgrad)) : ?>
 					<?php $laufbahn = array();?>
 					<?php foreach ($this->item->list_dienstgrad as $itemz) : ?>
 					<?php $laufbahn[] = $itemz['dienstgrad'].' ('.date('Y',strtotime($itemz['dienstgrad_datum'])).')'; ?>
@@ -177,7 +176,7 @@ if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.
 		
 					<?php if ($this->params->get('show_dienstgrad_list','1') == '0') : ?>
 					<?php if ($this->params->get('show_list_dienstgrad','0') == '0'  OR $this->params->get('show_list_dienstgrad','0') == '1') : ?>
-					<?php if ($this->item->list_dienstgrad) : ?>
+					<?php if (!empty($this->item->list_dienstgrad)) : ?>
 					<?php echo '<table style="border:0px;margin-left:-2px;margin-top:5px;padding-top:5px;"><tr><td style="vertical-align:top">Laufbahn: </td><td>'; ?>
 					<?php foreach ($this->item->list_dienstgrad as $itemz) : ?>
 					<?php echo '<li>'.$itemz['dienstgrad'].' ('.date('Y',strtotime($itemz['dienstgrad_datum'])).')</li>'; ?>

@@ -9,6 +9,8 @@
 // no direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Plugin\PluginHelper;
+
 \Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('jquery');
 
 use Joomla\CMS\Factory;
@@ -25,32 +27,6 @@ $doc = Factory::getApplication()->getDocument();
 $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 
 ?>
-</style>
-<script type="text/javascript">
-    function() {
-        jQuery(document).ready(function() {
-            jQuery('#form-termin').submit(function(event) {
-                
-            });
-
-            
-			jQuery('input:hidden.abteilungen').each(function(){
-				var name = jQuery(this).attr('name');
-				if(name.indexOf('abteilungenhidden')){
-					jQuery('#jform_abteilungen option[value="' + jQuery(this).val() + '"]').attr('selected',true);
-				}
-			});
-	jQuery('#jform_abteilungen').change(function(){
-		if(jQuery('#jform_abteilungen option:selected').length == 0){
-		jQuery("#jform_abteilungen option[value=0]").attr('selected', 'selected');
-		}
-	});
-					jQuery("#jform_abteilungen").trigger("liszt:updated");
-        });
-    });
-
-</script>
-
 <div class="termin-edit front-end-edit">
     <?php if (!empty($this->item->id)): ?>
         <h1>Termin <small>bearbeiten</small> (ID.Nr.<?php echo $this->item->id; ?>)</h1>
@@ -97,7 +73,7 @@ $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 	</div>
 	
 <?php
-	$plugin = JPluginHelper::getPlugin('system', 'ftm_event_mail') ;
+	$plugin = PluginHelper::getPlugin('system', 'ftm_event_mail') ;
 	if ($plugin) : 
 ?>
 	<div class="control-group">
@@ -125,16 +101,7 @@ $doc->addScript(Uri::root(true) . '/media/com_firefighters/js/form.js');
 		<div class="controls"><?php echo $this->form->getInput('created_by'); ?></div>
 	</div>				
 	
-	<!--<div class="fltlft" <?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?> style="display:none;" <?php endif; ?> >
-                <?php echo HTMLHelper::_('sliders.start', 'permissions-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-                <?php echo HTMLHelper::_('sliders.panel', Text::_('ACL Configuration'), 'access-rules'); ?>
-                <fieldset class="panelform">
-                    <?php echo $this->form->getLabel('rules'); ?>
-                    <?php echo $this->form->getInput('rules'); ?>
-                </fieldset>
-                <?php echo HTMLHelper::_('sliders.end'); ?>
-            </div> -->
-				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin','firefighters')): ?>
+				<?php if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_firefighters')): ?>
                 <script type="text/javascript">
                     jQuery.noConflict();
                     jQuery('.tab-pane select').each(function(){

@@ -98,7 +98,7 @@ Unterstützen Sie die Weiterentwicklung unseres Projekts FIREFIGHTERS TEAM MANAG
 <div class="col-md-5">
 					<div class="well well-small" style=" float:left;">
 						<div class="center">
-							<?php echo '<h4>'.JTEXT::_('FIREFIGHTERS TEAM MANAGER für das Joomla-CMS ');?><?php echo '</h4>';?>
+							<?php echo '<h4>'.Text::_('FIREFIGHTERS TEAM MANAGER für das Joomla-CMS ');?><?php echo '</h4>';?>
 						</div>
 						<hr class="hr-condensed">
 						<dl class="dl-horizontal">
@@ -110,16 +110,24 @@ Unterstützen Sie die Weiterentwicklung unseres Projekts FIREFIGHTERS TEAM MANAG
 							<?php echo '<span class="label label-important"> ( nicht validiert ) </span><br/>siehe Optionen / Info';?>
                             <?php endif;?>
 							
-								<?php HTMLHelper::_('behavior.modal'); ?>
+								<?php Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('bootstrap.modal'); ?>
 								</br>
-								<div style="display:none;">
-								<div id="eiko-changelog">
-									<?php
-										echo changelog (JPATH_ADMINISTRATOR . '/components/com_firefighters'.'/CHANGELOG.php');
-									?>
+						<a href="#eiko-changelog" data-bs-toggle="modal"><?php echo 'Changelog'; ?></a>
+						<div id="eiko-changelog" class="modal fade" tabindex="-1" aria-hidden="true">
+							<div class="modal-dialog modal-lg modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title">Changelog</h3>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo Text::_('JCLOSE'); ?>"></button>
+									</div>
+									<div class="modal-body">
+										<?php
+											echo changelog (JPATH_ADMINISTRATOR . '/components/com_firefighters'.'/CHANGELOG.php');
+										?>
+									</div>
 								</div>
-								</div>
-						<a href="#eiko-changelog" class="modal"><?php echo 'Changelog'; ?></a>
+							</div>
+						</div>
 
                             </dd>
 							<hr>
@@ -160,10 +168,11 @@ Unterstützen Sie die Weiterentwicklung unseres Projekts FIREFIGHTERS TEAM MANAG
 						<a href="#myModal" role="button" style="margin-bottom:5px;" class="label label-info" data-bs-toggle="modal">Verfügbare Module und Plugins ...</a>
      
 						<!-- Modal -->
-						<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog"><div class="modal-content">
 						<div class="modal-header">
-						<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
-						<h3 id="myModalLabel">Verfügbare Module und Plugins</h3>
+						<h3 id="myModalLabel" class="modal-title">Verfügbare Module und Plugins</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo Text::_('JCLOSE'); ?>"></button>
 						</div>
 						<div class="modal-body">
 						<ul>
@@ -173,10 +182,10 @@ Unterstützen Sie die Weiterentwicklung unseres Projekts FIREFIGHTERS TEAM MANAG
 						<h4>Mehr Infos dazu auf <a href="https://www.einsatzkomponente.de/" target="_blank" class="">www.einsatzkomponente.de</a></h4>
 						</div>
 						<div class="modal-footer">
-						<button class="btn" data-bs-dismiss="modal" aria-hidden="true">Schliessen</button>
-						<!--<button class="btn btn-primary">Save changes</button> !-->
+						<button class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
 						</div>
-						</div>	
+						</div></div>
+						</div>
 						<hr>
 						<b>Info PHP-Funktionen:</b></br>
 						

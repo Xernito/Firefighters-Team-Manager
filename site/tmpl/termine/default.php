@@ -48,6 +48,6 @@ $canEdit = Factory::getApplication()->getIdentity()->authorise('core.edit', 'com
 <?php endif;?>
 
 <?php
-require_once JPATH_SITE.'/components/com_firefighters/views/termine/tmpl/'.$this->params->get('main_layout','main_layout_1.php').''; 
+require JPATH_SITE.'/components/com_firefighters/tmpl/termine/'.$this->params->get('main_layout','main_layout_1.php').''; 
 
 ?>

@@ -8,6 +8,7 @@
  */
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
 
 use Joomla\CMS\Factory;
@@ -34,7 +35,7 @@ $bug='0';
 ?>
 <div align="left">
 <?php
-		echo '<h2>'.JTEXT::_('Installationsmanager für Firefighters Team Manager Version ').$params['version'].'</h2>'; 
+		echo '<h2>'.Text::_('Installationsmanager für Firefighters Team Manager Version ').$params['version'].'</h2>'; 
 		
 		?>
 		<a target="_blank" href="https://www.einsatzkomponente.de/index.php"><img border=0  src="<?php echo Uri::root(true); ?>/media/com_firefighters/images/komponentenbanner.jpg"/></a><br/><br/>

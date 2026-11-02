@@ -49,7 +49,9 @@ class HtmlView extends BaseHtmlView {
 		endif;
 
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('termin_detail_css','')); 
+		if (trim((string) $this->params->get('termin_detail_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('termin_detail_css',''));
+		} 
 
 		
 

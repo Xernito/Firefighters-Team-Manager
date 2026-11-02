@@ -120,13 +120,13 @@ use Joomla\CMS\Version;
 				
 				<br/>				
 					<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '2') : ?>
-					<?php if ($item->geburtsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->geburtsdatum) && $item->geburtsdatum != '0000-00-00 00:00:00') : ?>
 					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
 				<br/>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '2') : ?>
-					<?php if ($item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->eintrittsdatum) && $item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
 					
 					<?php $zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812);?>
 					<?php $zeit2 = ' Jahr(en) ';?>
@@ -179,11 +179,10 @@ use Joomla\CMS\Version;
 					<?php endif; ?>
 					<?php endif; ?>
 					
-				<?php $version = new Version;?>
-				<?php if ($version->isCompatible('3.7')) :?>
+				<?php if (true) :?>
 					<?php if ($this->params->get('show_list_dienstgrad','0') != '4') : ?>
 					<?php if ($this->params->get('show_list_dienstgrad','0') == '0'  OR $this->params->get('show_list_dienstgrad','0') == '1') : ?>
-					<?php if ($item->list_dienstgrad) : ?>
+					<?php if (!empty($item->list_dienstgrad)) : ?>
 					<?php $laufbahn = array();?>
 					<?php foreach ($item->list_dienstgrad as $itemz) : ?>
 					<?php $laufbahn[] = $itemz['dienstgrad'].' ('.date('Y',strtotime($itemz['dienstgrad_datum'])).')'; ?>

@@ -120,13 +120,13 @@ use Joomla\CMS\Version;
 				
 				<br/>				
 					<?php if ($this->params->get('show_alter','0') == '0'  OR $this->params->get('show_alter','0') == '2') : ?>
-					<?php if ($item->geburtsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->geburtsdatum) && $item->geburtsdatum != '0000-00-00 00:00:00') : ?>
 					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
 				<br/>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php if ($this->params->get('show_eintrittsdatum','0') == '0'  OR $this->params->get('show_eintrittsdatum','0') == '2') : ?>
-					<?php if ($item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->eintrittsdatum) && $item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
 					<?php $zeit = floor((time() - strtotime($item->eintrittsdatum)) / 31558149.54028812);?>
 					<?php $zeit2 = ' Jahr(en) ';?>
 					
@@ -211,13 +211,13 @@ use Joomla\CMS\Version;
       <h1 class="media-heading"><?php echo $this->escape($item->name).', '.$this->escape($item->vorname);?></br><small> <?php echo $item->dienstgrad;?></small></h1>
 	  
 					<!--<?php if ($this->params->get('show_alter','1')) : ?>-->
-					<?php if ($item->geburtsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->geburtsdatum) && $item->geburtsdatum != '0000-00-00 00:00:00') : ?>
 					<?php echo '<b>Alter: </b>'.floor((time() - strtotime($item->geburtsdatum)) / 31558149.540288); ?>
 				<br/>
 					<?php endif; ?>
 					<!--<?php endif; ?>-->
 					<!--<?php if ($this->params->get('show_eintrittsdatum','1')) : ?>-->
-					<?php if ($item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
+					<?php if (!empty($item->eintrittsdatum) && $item->eintrittsdatum != '0000-00-00 00:00:00') : ?>
 					<?php //echo '<b>Eintrittsjahr: </b>'.date('Y', strtotime($item->eintrittsdatum)); ?>
 					<?php echo 'Seit '.floor((time() - strtotime($item->eintrittsdatum)) / 31558149.540288).' Jahr(en) Mitglied in der Feuerwehr'; ?>
 				<br/><br/>

@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 \Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('jquery');
 
+use Firefighters\Component\Firefighters\Administrator\Helper\FirefightersHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -128,8 +129,7 @@ $val= FirefightersHelper::getValidation();
 				<div class="control-label"><?php echo $this->form->getLabel('dienstgrad'); ?></div>
 				<div class="controls" style="padding-bottom:10px;"><?php echo $this->form->getInput('dienstgrad'); ?></div>
 				
-				<?php $version = new Version;?>
-				<?php if ($version->isCompatible('3.7')) :?>
+				<?php if (true) :?>
 				<div class="controls hideme"><?php echo $this->form->getInput('list_dienstgrad'); ?></div>
 				<?php if (!$val) : ?>
 				<div class="controls"><?php echo '<span style="color:red;">Dienstgrad-Historie nur Premium-Version verfügbar</span>'; ?></div>
@@ -154,8 +154,7 @@ $val= FirefightersHelper::getValidation();
 				<div class="control-label"><?php echo $this->form->getLabel('abteilungen'); ?></div>
 				<div class="controls" style="padding-bottom:10px;"><?php echo $this->form->getInput('abteilungen'); ?></div>
 				
-				<?php $version = new Version;?>
-				<?php if ($version->isCompatible('3.7')) :?>
+				<?php if (true) :?>
 				<div class="controls hideme"><?php echo $this->form->getInput('list_abteilungen'); ?></div>
 				<?php if (!$val) : ?>
 				<div class="controls"><?php echo '<span style="color:red;">Abteilungen-Historie nur Premium-Version verfügbar</span>'; ?></div>
@@ -180,8 +179,7 @@ $val= FirefightersHelper::getValidation();
 				<div class="control-label"><?php echo $this->form->getLabel('ausbildungen'); ?></div>
 				<div class="controls" style="padding-bottom:10px;"><?php echo $this->form->getInput('ausbildungen'); ?></div>
 				
-				<?php $version = new Version;?>
-				<?php if ($version->isCompatible('3.7')) :?>
+				<?php if (true) :?>
 				<div class="controls"><?php echo $this->form->getInput('list_ausbildungen'); ?></div>
 				<?php if (!$val) : ?>
 				<div class="controls"><?php echo '<span style="color:red;">Ausbildungen-Historie nur Premium-Version verfügbar</span>'; ?></div>

@@ -50,7 +50,9 @@ class HtmlView extends BaseHtmlView {
 		endif;
 		
 		$document->getWebAssetManager()->useStyle('com_firefighters.firefighters');
-		$document->getWebAssetManager()->addInlineStyle($this->params->get('abteilungen_css','')); 
+		if (trim((string) $this->params->get('abteilungen_css','')) !== '') {
+			$document->getWebAssetManager()->addInlineStyle($this->params->get('abteilungen_css',''));
+		} 
 
 		//Komponentenversion aus Datenbank lesen
 		$this->version 		= FirefightersHelper::getVersion (); 
